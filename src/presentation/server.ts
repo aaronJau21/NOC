@@ -2,6 +2,9 @@ import { CronService } from "./cron/cron-services";
 
 export class Server {
   public static start() {
-    CronService.createJob();
+    CronService.createJob("*/5 * * * * *", () => {
+      const date = new Date();
+      console.log("5 seconds", date);
+    });
   }
 }

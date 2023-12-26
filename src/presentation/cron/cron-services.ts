@@ -1,14 +1,11 @@
 import { CronJob } from "cron";
 
+type CronTime = string | Date;
+type OnTick = () => void;
+
 export class CronService {
-  static createJob(): CronJob {
-    const job = new CronJob(
-      "*/3 * * * * *", // cronTime
-      function () {
-        const date = new Date();
-        console.log(date);
-      }
-    );
+  static createJob(cronTime: CronTime, onTick: OnTick): CronJob {
+    const job = new CronJob(cronTime, onTick);
     job.start();
 
     return job;
