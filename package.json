@@ -1,0 +1,19 @@
+{
+  "name": "noc",
+  "version": "1.0.0",
+  "description": "Aplicacion de Consola",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aaronJau21/NOC.git"
+  },
+  "author": "Aaron Jauregui",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/aaronJau21/NOC/issues"
+  },
+  "homepage": "https://github.com/aaronJau21/NOC#readme"
+}
