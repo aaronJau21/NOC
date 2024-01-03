@@ -5,7 +5,7 @@ import { LogEntity, LogSeverityLevel } from "../../domain/entities/log.entity";
 
 export class FileSystemDataSource implements LogDataSource {
   private readonly logPath = "logs/";
-  private readonly allLogsPath = "logs/logs-low.log";
+  private readonly allLogsPath = "logs/logs-all.log";
   private readonly mediumLogsPath = "logs/logs-medium.log";
   private readonly highLogsPath = "logs/logs-high.log";
 
@@ -27,10 +27,37 @@ export class FileSystemDataSource implements LogDataSource {
     );
   };
 
-  saveLog(log: LogEntity): Promise<void> {
-    throw new Error("Method not implemented.");
+  async saveLog(newLog: LogEntity): Promise<void> {
+    const logAsJson = `${JSON.stringify(newLog)}\n`;
+
+    fs.appendFileSync(this.allLogsPath, logAsJson);
+
+    if (newLog.level === LogSeverityLevel.low) return;
+
+    if (newLog.level === LogSeverityLevel.medium) {
+      fs.appendFileSync(this.mediumLogsPath, logAsJson);
+    } else {
+      fs.appendFileSync(this.highLogsPath, logAsJson);
+    }
   }
-  getLogs(severetyLevel: LogSeverityLevel): Promise<LogEntity[]> {
-    throw new Error("Method not implemented.");
+
+  private getLogsFromFile = (path: string): LogEntity[] => {
+    const content = fs.readFileSync(path, "utf-8");
+    const logs = content.split("\n").map((log) => LogEntity.fromJson(log));
+
+    return logs;
+  };
+
+  async getLogs(severetyLevel: LogSeverityLevel): Promise<LogEntity[]> {
+    switch (severetyLevel) {
+      case LogSeverityLevel.low:
+        return this.getLogsFromFile(this.allLogsPath);
+      case LogSeverityLevel.medium:
+        return this.getLogsFromFile(this.mediumLogsPath);
+      case LogSeverityLevel.high:
+        return this.getLogsFromFile(this.highLogsPath);
+      default:
+        throw new Error(`${severetyLevel} not implemented`);
+    }
   }
 }
