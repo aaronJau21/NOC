@@ -3,8 +3,10 @@
 // import { LogRepositoryImpl } from "../infrastructure/repositories/log-impl.repository";
 // import { CronService } from "./cron/cron-services";
 
-import { envs } from "../config/plugins/envs.plugins";
 // import { EmailService } from "./email/email.service";
+
+// // import { envs } from "../config/plugins/envs.plugins";
+// // import { EmailService } from "./email/email.service";
 
 // const fileSystemLogRepository = new LogRepositoryImpl(
 //   new FileSystemDataSource()
@@ -12,26 +14,20 @@ import { envs } from "../config/plugins/envs.plugins";
 
 export class Server {
   public static start() {
-    // const emailService = new EmailService();
-    // emailService.sendEmail({
-    //   to: "aaronjaureguisifuentes@gmail.com",
-    //   subject: "Logs de Sistema",
-    //   htmlBody: `
-      
-    //   <h3>Logs de sistema - NOC</h3>
-    //   <p>Hola Mundo</p>
-      
-    //   `,
-    // });
+    console.log("Server Started...");
 
-    // CronService.createJob("*/5 * * * * *", () => {
-    //   new CheckService(
-    //     fileSystemLogRepository,
-    //     () => console.log("Success"),
-    //     (error: string) => console.log(error)
-    //   ).execute("https://www.youtube.com/");
-    // });
+    // const emailService = new EmailService(fileSystemLogRepository);
+    // emailService.sendEmailWithFileSystemLogs([
+    //   "aaronjau21@gmail.com",
+    //   "aaronjaureguisifuentes@gmail.com",
+    // ]);
 
-    console.log(envs.MAILER_SECRET_KEY, envs.MAILER_EMAIL);
+    //   CronService.createJob("*/5 * * * * *", () => {
+    //     new CheckService(
+    //       fileSystemLogRepository,
+    //       () => console.log("Success"),
+    //       (error: string) => console.log(error)
+    //     ).execute("https://www.youtube.com/");
+    //   });
   }
 }
